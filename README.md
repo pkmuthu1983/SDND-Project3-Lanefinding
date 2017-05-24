@@ -74,11 +74,13 @@ These two functions are defined in cell 9 Pipeline-Final.ipynb. Images below sho
 ![alt text][image9]
 
 The Pipelines uses three measures to measure goodness of fit:
+
 0. confidence value - a measure of number of points used to fit. For ex, for the image shown above in the left, the confidence value for left and right lanes are 1 and 0.5 respectively. This is because all boxes in left side are filled with pixels. But, only 6 out 12 boxes are filled.
 1. r2 value - this measures mean square error of fit. Sometimes even if we have fewer points to fit, we can get a very good quadratic fit. These fits will have low error.
 2. Parallelism - This meaures the degree of parallelism between left and right fits.
 
 ** Algorithm **(refer lines 264- 397):
+
 0. Initially, the pipeline uses sliding window technique (findLanes_slidingwindow) to find lanes and stores them in the line objects. Furthermore, the top-view transformation for intial frames consider very close view of camera (TransM2), so we can detect both lanes accurately. During this process, the lane width is also calculated and stored.
 1. Later on, the pipeline uses extrapolation (findLanes_extrapolate) to extend previously fitted lines. If these lines are not good, then it tries sliding window again.
 2. Once we have polynomial fits for left and right lanes for a given image, the pipeline selects one or both of them using the quality measures discussed earlier. If both fits are good, it uses both. In some cases, only one of the two lanes may be accurately fitted. In this case, the pipeline uses this good fit as reference to calculate the fit for the other lane. The estimated lane width is used to get this fit. In some other cases, we may not have a good fit for both lanes; in this case, it uses average fit for both lanes.
