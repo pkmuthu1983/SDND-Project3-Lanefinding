@@ -49,12 +49,12 @@ Use the calibration matrix obtained in the above step to correct the distortion.
 ![Undistorted image of road][image4]
 
 #### 2. Thresholding:
-One of the main tasks of the pipeline is to obtain a binary image that we can use to identify lanes. In order to do this, I combined the gradients of grayscale image along with the gradient of saturation component of the image, to detect edges in the image. The function gradient_threshold() (Pipeline-Final.ipynb, cell 5) performs this task. Appropriate thresholds are also applied to the gradients to retain sharp edges. The figure below shows the thresholded binary image corresponding to the image show above.
+One of the main tasks of the pipeline is to obtain a binary image that we can use to identify lanes. In order to do this, I combined the gradients of grayscale image along with the gradient of saturation component of the image, to detect edges in the image. The function gradient_threshold() (Pipeline-Final.ipynb, cell 4) performs this task. Appropriate thresholds are also applied to the gradients to retain sharp edges. The figure below shows the thresholded binary image corresponding to the image show above.
 
 ![alt text][image5]
 
 #### 3. Perspective transform:
-The pipeline uses two matrices for perspective transform (TransM1, TransM2). The matrices are obtained using cv2.getPerspectiveTransform() (refer cell 4). TransM1 is used most of the time by the pipeline. TransM2 is used during initial frames to get an estimate of lane width. TransM2 matrix will provide a top-view of the portion of the road that is very close to the camera, so, we can cleary identify the lanes. TransM1, on the other hand, takes a longer view of the road ahead and gives us the top-view. These two matrices are obtained by manually mapping points on the lane to "estimated" top-view points, using the test images provided. The source and destination corners are shown in the notebook (refer src_corners, and dst_corners).
+The pipeline uses two matrices for perspective transform (TransM1, TransM2). The matrices are obtained using cv2.getPerspectiveTransform() (refer cell 5). TransM1 is used most of the time by the pipeline. TransM2 is used during initial frames to get an estimate of lane width. TransM2 matrix will provide a top-view of the portion of the road that is very close to the camera, so, we can cleary identify the lanes. TransM1, on the other hand, takes a longer view of the road ahead and gives us the top-view. These two matrices are obtained by manually mapping points on the lane to "estimated" top-view points, using the test images provided. The source and destination corners are shown in the notebook (refer src_corners, and dst_corners).
 
 The images below shows the perspective transform (using TransM1) for the road images shown above (original image as well the thresholded image).
 
@@ -68,7 +68,7 @@ Now, we have the thresholded (and transformed) binary image, which clearly shows
 - findLanes_slidingwindow() uses sliding window technique starting from the bottom of the image to find non-zero pixels and fits a quadratic function to left and right white pixels. 
 - findLanes_extrapolate() extrapolates polynomials fits that are found for previous frames and tries to get a new fit for the current image.
 
-These two functions are defined in cell 9 Pipeline-Final.ipynb. Images below shows the quadratic fit obtained by sliding window and extrapolation.
+These two functions are defined in cell 8 Pipeline-Final.ipynb. Images below shows the quadratic fit obtained by sliding window and extrapolation.
 
 ![alt text][image8]
 ![alt text][image9]
@@ -85,7 +85,13 @@ The Pipelines uses three measures to measure goodness of fit:
 1. Later on, the pipeline uses extrapolation (findLanes_extrapolate) to extend previously fitted lines. If these lines are not good, then it tries sliding window again.
 2. Once we have polynomial fits for left and right lanes for a given image, the pipeline selects one or both of them using the quality measures discussed earlier. If both fits are good, it uses both. In some cases, only one of the two lanes may be accurately fitted. In this case, the pipeline uses this good fit as reference to calculate the fit for the other lane. The estimated lane width is used to get this fit. In some other cases, we may not have a good fit for both lanes; in this case, it uses average fit for both lanes.
 
-The functions findLanes_slidingwindow/findLanes_extrapolate also calcuate the radius of curvature around lines 100-114 and 220 - 230 of cell 9.
+The functions findLanes_slidingwindow/findLanes_extrapolate also calcuate the radius of curvature around lines 100-114 and 220 - 230 of cell 8.
+
+The following parameters were chosen for scaling in x and y direction.
+
+ym_per_pix = 30/720 (The top-view covered three white lines with 2 two spaces: 2 * 30 ft + 3 * 10 ft ~ 100 ft - 30m)
+
+xm_per_pix = 3.7/600 (Lane width was 600 pixels after op view transformation)
 
 #### Sample Output:
 
@@ -94,23 +100,14 @@ The final ouput from the pipeline looks like images shown below, where the lane 
 ![alt text][image10]
 ![alt text][image11]
 
-The next image is a frame output for the challenge video. For this frame, the pipeline can only detect the right lane accurately. So, it uses the right lane as reference and then estimates the left lane boundary by adding the lane width.
-
-![alt text][image12]
-
 ---
 
 ### Video output
 
 #### 1. Project video:
-The link to video is below. The Pipeline finds good fit most of the time. The estimated radius of curvature is also shown on the video. The left and right radius of curvature is close to 1000m during curves.
+The link to video is below. The Pipeline finds good fit most of the time. The estimated radius of curvature is also shown on the video. The left and right radius of curvature is close to 1000m during curves. The video also shows deviation from the center. Most of the time the car seems to stay to the right-side of center.
 
 [link to video](./project_video_withlanes.mp4)
-
-#### 2. Challenge video:
-The link to video is below. The Pipeline finds struggles initially to fit lanes, but does reasonably well later.
-
-[link to video](./challenge_video_withlanes.mp4)
 
 ---
 
