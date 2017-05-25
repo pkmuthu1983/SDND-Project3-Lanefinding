@@ -18400,7 +18400,7 @@ BMw4gqIPCAgImHH8D+a4tnnzYregAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">img_video</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;video_images/project_video/frame420.jpg&#39;</span><span class="p">)</span>
@@ -19865,7 +19865,7 @@ VHiZfZ/NAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## calculate mean squared error for a fit</span>
@@ -19897,7 +19897,7 @@ VHiZfZ/NAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Apply sliding window technique to find lane lines</span>
@@ -20243,12 +20243,12 @@ VHiZfZ/NAAAAAElFTkSuQmCC
         <span class="n">right_text</span> <span class="o">=</span> <span class="s1">&#39;Right: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">right_cr</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;(m)&#39;</span>
         
     <span class="n">deviation</span> <span class="o">=</span> <span class="p">(</span><span class="n">width</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">right_fitx</span><span class="p">[</span><span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">left_fitx</span><span class="p">[</span><span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span><span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">xm_per_pix</span>
-    <span class="k">if</span> <span class="n">deviation</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">dev_text</span> <span class="o">=</span> <span class="s1">&#39;Vehicle located &#39;</span> <span class="o">+</span> <span class="nb">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">deviation</span><span class="p">),</span> <span class="s1">&#39;0.2f&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;(m) right of center&#39;</span>
-    <span class="k">elif</span> <span class="n">deviation</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">dev_text</span> <span class="o">=</span> <span class="s1">&#39;Vehicle located &#39;</span> <span class="o">+</span> <span class="nb">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">deviation</span><span class="p">),</span> <span class="s1">&#39;0.2f&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;(m) left of center&#39;</span>
+    <span class="k">if</span> <span class="n">deviation</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dev_text</span> <span class="o">=</span> <span class="s1">&#39;Vehicle located &#39;</span> <span class="o">+</span> <span class="nb">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">deviation</span><span class="p">),</span> <span class="s1">&#39;0.2f&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;(m) right of lane center&#39;</span>
+    <span class="k">elif</span> <span class="n">deviation</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dev_text</span> <span class="o">=</span> <span class="s1">&#39;Vehicle located &#39;</span> <span class="o">+</span> <span class="nb">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">deviation</span><span class="p">),</span> <span class="s1">&#39;0.2f&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;(m) left of lane center&#39;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">dev_text</span> <span class="o">=</span> <span class="s1">&#39;Vehicle located in center&#39;</span>
+        <span class="n">dev_text</span> <span class="o">=</span> <span class="s1">&#39;Vehicle located in lane center&#39;</span>
         
         
     <span class="n">color_warp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">undist_img</span><span class="p">)</span>
@@ -20287,7 +20287,7 @@ VHiZfZ/NAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Line class. Line object stores upto &#39;K&#39; previous lines. In addition,</span>
@@ -20347,7 +20347,7 @@ VHiZfZ/NAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">output_video</span> <span class="o">=</span> <span class="s2">&quot;project_video_withlanes.mp4&quot;</span>
@@ -20386,7 +20386,7 @@ VHiZfZ/NAAAAAElFTkSuQmCC
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|█████████████████████████████████████████████████████████████████████████████████████████████████████▉| 1260/1261 [05:25&lt;00:00,  4.08it/s]
+<pre>100%|█████████████████████████████████████████████████████████████████████████████▉| 1260/1261 [05:28&lt;00:00,  3.76it/s]
 </pre>
 </div>
 </div>
@@ -20398,13 +20398,13 @@ VHiZfZ/NAAAAAElFTkSuQmCC
 <pre>[MoviePy] Done.
 [MoviePy] &gt;&gt;&gt;&gt; Video ready: project_video_withlanes.mp4 
 
-Wall time: 5min 26s
+Wall time: 5min 30s
 </pre>
 </div>
 </div>
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[17]:</div>
+<div class="prompt output_prompt">Out[10]:</div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -20417,6 +20417,19 @@ Wall time: 5min 26s
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
 </div>
 </div>
 
